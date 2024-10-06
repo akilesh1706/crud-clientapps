@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package client;
+
+option go_package = "./proto";
+
+service ClientService {
+    rpc CreateClient (CreateClientRequest) returns (Client) {}
+    rpc GetClient (GetClientRequest) returns (Client) {}
+    rpc UpdateClient (UpdateClientRequest) returns (Client) {}
+    rpc DeleteClient (DeleteClientRequest) returns (DeleteClientResponse) {}
+    rpc ListClients (ListClientsRequest) returns (ListClientsResponse) {}
+}
+
+//Client start
+message Client {
+    string Id = 1;
+    string clientId = 2;
+    string clientName = 3;
+    string clientLogo = 4;
+    string clientSecret = 5;
+    repeated string domains = 6;
+    Permissions permissions = 7;
+    repeated Student student_list = 8;
+}
+
+message Permissions {
+    bool roll_no = 1;
+    bool name = 2;
+    bool gender = 3;
+    bool department_id = 4;
+    bool nationality = 5;
+    bool mobile_no = 6;
+    bool address = 7;
+    bool picture_url = 8;
+    bool dob = 9;
+}
+
+message Student {
+    int32 roll_no = 1;
+    string oid = 2;
+}
+//Client end
+
+//CreateClientRequest start
+message CreateClientRequest {
+    string clientId = 1;
+    string clientName = 2;
+    string clientLogo = 3;
+    string clientSecret = 4;
+    repeated string domains = 5;
+    Permissions permissions = 6;
+    repeated Student student_list = 7;
+}
+//CreateClientRequest end
+
+//GetClientRequest start
+message GetClientRequest {
+    string ClientId = 1;
+}
+//GetClientRequest end
+
+//UpdateClientRequest start
+message UpdateClientRequest {
+    string clientId = 1;
+    string clientName = 2;
+    string clientLogo = 3;
+    string clientSecret = 4;
+    repeated string domains = 5;
+    Permissions permissions = 6;
+    repeated Student student_list = 7;
+}
+//UpdateClientRequest end
+
+//DeleteClientRequest start
+message DeleteClientRequest {
+    string clientId = 1;
+}
+//DeleteClientRequest end
+
+//DeleteClientResponse start
+message DeleteClientResponse {
+    bool success = 1;
+}
+//DeleteClientResponse end
+
+//ListClientsRequest start
+message ListClientsRequest {
+    int32 page = 1;
+    int32 page_size = 2;
+}
+//ListClientRequest end
+
+//ListClientsResponse start
+message ListClientsResponse {
+    repeated Client clients = 1;
+    int32 total_count = 2;
+}
+//ListClientsResponse end
